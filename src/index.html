@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Awesome Capacitor App</title>
+    <meta name="viewport"
+        content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+
+    <script type="module"
+        src="https://unpkg.com/@ionic/pwa-elements@latest/dist/ionicpwaelements/ionicpwaelements.esm.js"></script>
+    <script nomodule
+        src="https://unpkg.com/@ionic/pwa-elements@latest/dist/ionicpwaelements/ionicpwaelements.js"></script>
+
+    <link rel="icon" type="image/x-icon" href="./assets/icon/favicon.ico" />
+    <link rel="manifest" href="./manifest.json" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <meta name="theme-color" content="#31d53d" />
+</head>
+
+<body>
+    <button onclick="getCurrentPosition()">位置情報を取得</button>
+    <textarea id="log" readonly></textarea>
+
+    <script type="module">
+        import { Geolocation } from '@capacitor/geolocation';
+
+        window.getCurrentPosition = async function getCurrentPosition() {
+            try {
+                const coordinates = await Geolocation.getCurrentPosition();
+                const logArea = document.getElementById('log');
+                logArea.value += `Latitude: ${coordinates.coords.latitude}, Longitude: ${coordinates.coords.longitude}\n`; // 改行を追加
+            } catch (e) {
+                console.error('Error getting location', e);
+            }
+        }
+    </script>
+</body>
+
+</html>

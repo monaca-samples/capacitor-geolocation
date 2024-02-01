@@ -1,0 +1,36 @@
+platforms:
+  android:
+    versionName: 1.0.0
+    manifest:
+      -
+        file: AndroidManifest.xml
+        target: manifest/application/activity
+        attrs:
+          'android:screenOrientation': unspecified
+      -
+        file: AndroidManifest.xml
+        target: manifest
+        inject: |
+          <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+          <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+          <uses-feature android:name="android.hardware.location.gps" />
+  ios:
+    targets:
+      App:
+        version: 1.0.0
+        xcconfig:
+          -
+            file: App/Config.xcconfig
+            set:
+              TARGETED_DEVICE_FAMILY: '1,2'
+        plist:
+          -
+            replace: true
+            entries:
+              -
+                UISupportedInterfaceOrientations:
+                  - UIInterfaceOrientationPortrait
+                  - UIInterfaceOrientationLandscapeLeft
+                  - UIInterfaceOrientationLandscapeRight
+              - NSLocationWhenInUseUsageDescription: 'This app uses location information while in use.'
+              - NSLocationAlwaysUsageDescription: 'This app uses location information at all times.'
